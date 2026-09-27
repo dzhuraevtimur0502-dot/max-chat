@@ -2,7 +2,8 @@
   constructor(idInstance, apiTokenInstance) {
     this.idInstance = idInstance;
     this.apiTokenInstance = apiTokenInstance;
-    this.baseUrl = `/gapi/waInstance${idInstance}`;
+    // Используем прямой URL для работы на Vercel
+    this.baseUrl = `https://${idInstance.slice(0, 4)}.api.green-api.com/waInstance${idInstance}`;
   }
 
   async checkAccount(phoneNumber) {
@@ -38,7 +39,6 @@
   }
 
   async deleteNotification(receiptId) {
-    // Пробуем GET с query parameter
     try {
       const res = await fetch(
         `${this.baseUrl}/deleteNotification/${this.apiTokenInstance}?receiptId=${receiptId}`
